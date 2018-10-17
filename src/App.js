@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Day from './Day.js'
-import { safeName, auth, dayNames } from './utils';
+import { safeName, auth, dayNames, getWeek } from './utils';
 import './App.css';
 
 const safeNames = dayNames.map(safeName);
@@ -11,7 +11,7 @@ export default class App extends Component {
     this.state = {
       user: false,
       zoomed: false,
-      week: new Date().getWeek()
+      week: props.week || getWeek(new Date())
     }
   }
   componentDidMount() {
@@ -31,7 +31,10 @@ export default class App extends Component {
   render() {
     const { user, week, zoomed } = this.state;
     if (!user) {
-      return (<div className="center"><div className="loading">Loading...</div></div>);
+      return (
+        <div className="center">
+          <div className="loading">Loading...</div>
+        </div>);
     }
 
     let days = dayNames.map((name, i) => (

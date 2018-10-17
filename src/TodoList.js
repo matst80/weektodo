@@ -17,11 +17,11 @@ export default class TodoList extends Component {
     }
     componentDidMount() {
         this._ref.on('value', snap => {
+            let items = {};
             if (snap.exists()) {
-                const items = snap.val();
-                this.setState({ items, loading: false });
+                items = snap.val();
             }
-            else this.setState({ items: {}, loading: false });
+            this.setState({ items, loading: false });
         });
     }
     componentWillUnmount() {

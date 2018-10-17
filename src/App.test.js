@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import App from './App';
 import './utils';
 import renderer from 'react-test-renderer'
-import { safeName } from './utils';
+import { safeName, getWeek } from './utils';
 
 it('renders without crashing', () => {
   const div = document.createElement('div');
@@ -18,10 +18,24 @@ it('renders correctly', () => {
   expect(tree).toMatchSnapshot()
 })
 
+it('renders correctly lastweek', () => {
+  const tree = renderer
+    .create(<App week={52} />)
+    .toJSON()
+  expect(tree).toMatchSnapshot()
+})
+
+it('renders correctly firstweek', () => {
+  const tree = renderer
+    .create(<App week={1} />)
+    .toJSON()
+  expect(tree).toMatchSnapshot()
+})
+
 test('weekCalc', () => {
-  expect(new Date('2018/10/17').getWeek()).toBe(42);
+  expect(getWeek(new Date('2018/10/17'))).toBe(42);
 });
 
-test('no swedish chars in safeName',()=>{
+test('no swedish chars in safeName', () => {
   expect(safeName('åäöÅÄÖ')).toBe('aaoaao');
 });

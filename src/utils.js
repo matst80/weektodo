@@ -1,15 +1,15 @@
-Date.prototype.getWeek = function () {
-    var newYear = new Date(this.getFullYear(), 0, 1);
+export const getWeek = (date) => {
+    var newYear = new Date(date.getFullYear(), 0, 1);
     var day = newYear.getDay();
     day = (day >= 0 ? day : day + 7);
-    var daynum = Math.floor((this.getTime() - newYear.getTime() -
-        (this.getTimezoneOffset() - newYear.getTimezoneOffset()) * 60000) / 86400000) + 1;
+    var daynum = Math.floor((date.getTime() - newYear.getTime() -
+        (date.getTimezoneOffset() - newYear.getTimezoneOffset()) * 60000) / 86400000) + 1;
 
     let weeknum = Math.floor((daynum + day - 1) / 7);
     if (day < 4) {
         weeknum = Math.floor((daynum + day - 1) / 7) + 1;
         if (weeknum > 52) {
-            let nYear = new Date(this.getFullYear() + 1, 0, 1);
+            let nYear = new Date(date.getFullYear() + 1, 0, 1);
             let nday = nYear.getDay();
             nday = nday >= 0 ? nday : nday + 7;
             weeknum = nday < 4 ? 1 : 53;
