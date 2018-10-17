@@ -1,0 +1,23 @@
+.day {
+    flex:1;
+    border-bottom: 0;
+    display: flex;
+    overflow: hidden;
+    flex-direction: column;
+    transition: all 0.4s ease-in-out;
+}
+.small {
+    flex:0.2;
+    background: rgba(0,0,0,0.4);
+    border:0;
+}
+.small input {
+    display: none;
+}
+.dayname {
+    background: linear-gradient(0deg, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0.05) 56%);
+    padding: 10px;
+}
+.zoomed {
+    flex:7;
+}

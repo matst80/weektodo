@@ -1,0 +1,23 @@
+.todo {
+    padding:8px;
+    flex:1;
+    border-left:solid 1px rgba(255,255,255,0.3);
+    display: flex;
+    flex-direction: column;
+}
+
+.day:first-child .todo {
+    border-left: 0;
+}
+
+.list {
+    flex: 1;
+}
+
+.todo input {
+    border: 0;
+    padding: 8px;
+    font: 14px;
+    background-color: rgba(255,255,255,0.4);
+    outline: 0;
+}

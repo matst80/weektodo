@@ -1,28 +1,58 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
+import Day from './Day.js'
+import { safeName, auth, dayNames } from './utils';
 import './App.css';
 
-class App extends Component {
+const safeNames = dayNames.map(safeName);
+
+export default class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      user: false,
+      zoomed: false,
+      week: new Date().getWeek()
+    }
+  }
+  componentDidMount() {
+    auth.onAuthStateChanged((user) => {
+      this.setState({ user: user || false });
+    });
+    auth.signInAnonymously()
+  }
+  changeWeek = (week) => {
+    this.setState({ week });
+  }
+  setZoom = (idx) => {
+    let { zoomed } = this.state;
+    zoomed = (zoomed === idx) ? false : idx;
+    this.setState({ zoomed });
+  }
   render() {
+    const { user, week, zoomed } = this.state;
+    if (!user) {
+      return (<div className="center"><div className="loading">Loading...</div></div>);
+    }
+
+    let days = dayNames.map((name, i) => (
+      <Day
+        onZoomed={_ => this.setZoom(i)}
+        zoomed={{ isModal: zoomed === i, other: zoomed }}
+        key={`${week}/${i}`}
+        dbKey={`todo/${week}/${safeNames[i]}`}
+        dayName={name}
+      />));
+
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
+      <div className="app">
+        <div className="days">
+          {days}
+        </div>
+        <div className="currentweek">
+          {week > 0 && <div className="weekbutton" onClick={() => this.changeWeek(week - 1)}>&lsaquo;</div>}
+          <div className="weeknr">Vecka {week}</div>
+          {week < 52 && <div className="weekbutton" onClick={() => this.changeWeek(week + 1)}>&rsaquo;</div>}</div>
       </div>
     );
   }
 }
-
-export default App;

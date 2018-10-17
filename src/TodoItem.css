@@ -1,0 +1,19 @@
+.delete {
+    position: relative;
+    opacity: 0;
+    right:-5px;
+    transition: opacity 0.3s ease-in-out;
+}
+.item {
+    cursor: pointer;
+    padding-bottom: 5px;
+}
+
+.item:hover .delete {
+    opacity: 1;
+}
+
+.done {
+    color:rgba(255,255,255,0.5);
+    text-decoration: line-through;
+}
